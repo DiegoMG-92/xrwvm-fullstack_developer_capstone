@@ -127,3 +127,9 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+#Added by AI
+client/node_modules/
+client/build/
+client/.env
+.vscode/
