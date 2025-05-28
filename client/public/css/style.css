@@ -187,6 +187,10 @@ html, body, #root {
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+     width: 100vw;           /* 👈 Ensures full viewport width */
+    margin-left: 0;
+    margin-right: 0;
+    overflow: hidden;  
 }
 
 .page-header-inner {

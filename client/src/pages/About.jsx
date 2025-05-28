@@ -1,14 +1,17 @@
 import TeamSection from '../components/TeamSection';
+import PageHeader from '../components/PageHeader';
 
 function About() {
   return (
-    <div className="container mt-5">
-      <h1 className="text-primary">About Us</h1>
-      <p className="mb-4">At Equinox Automotive, we’re driven by excellence and powered by integrity. 
-        With a team of highly skilled technicians and a commitment to top-tier service, we provide reliable, transparent,
-        and efficient auto care that keeps our customers confidently on the road.</p>
+    <>
+      <PageHeader title="About Us"/>
+      <div className="container mt-5">
+        <p className="text-center">
+          Equinox Automotive is committed to providing premium service with integrity and professionalism. Our expert team ensures every vehicle receives the highest standard of care and attention.
+        </p>
+      </div>
       <TeamSection />
-    </div>
+    </>
   );
 }
 

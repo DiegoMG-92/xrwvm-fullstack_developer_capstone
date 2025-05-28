@@ -32,7 +32,9 @@ ALLOWED_HOSTS = []
 CSRF_TRUSTED_ORIGINS = []
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': [],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
 }
 
 # Application definition
@@ -45,6 +47,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',  # if using token auth
+    'django.contrib.sites',      # if using packages like allauth/djoser
 ]
 
 MIDDLEWARE = [
