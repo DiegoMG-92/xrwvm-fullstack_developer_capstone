@@ -20,12 +20,13 @@ const Login = () => {
         body: JSON.stringify({ username, password }),
       });
 
-      if (response.ok) {
-        setUser({ username });
-        navigate('/'); // Redirect to homepage
-        alert('Correct Login');
+      const data = await response.json();
+
+      if (response.ok && data.status === 'Authenticated') {
+        setUser({ username: data.userName });
+        alert('Login successful'); // ✅ Show alert
+        navigate('/');             // ✅ Redirect to homepage
       } else {
-        const data = await response.json();
         setMessage(data.message || 'Login failed');
       }
     } catch (error) {

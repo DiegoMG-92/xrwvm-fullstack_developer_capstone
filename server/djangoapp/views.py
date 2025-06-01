@@ -8,10 +8,10 @@ from datetime import datetime
 from django.views.decorators.csrf import csrf_exempt
 import logging
 import json
+import os
 
 from .models import CarMake, CarModel
 from .populate import initiate
-from .restapis import get_request, analyze_review_sentiments  # ✅ IMPORT NEEDED
 from .restapis import get_request, analyze_review_sentiments, post_review
 
 # Get an instance of a logger
@@ -46,39 +46,56 @@ def get_cars(request):
     return JsonResponse({"CarModels": cars})
 
 
-# 🏪 View to return all dealers or by state
+# 🏪 View to return all dealers or by state (from local JSON)
 def get_dealerships(request, state="All"):
-    if state == "All":
-        endpoint = "/fetchDealers"
-    else:
-        endpoint = f"/fetchDealers/{state}"
-    dealerships = get_request(endpoint)
-    return JsonResponse({"status": 200, "dealers": dealerships})
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # /server
+    file_path = os.path.join(base_dir, 'database', 'data', 'dealerships.json')
+
+    try:
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+            dealerships = data.get("dealerships", [])
+
+            if state != "All":
+                dealerships = [dealer for dealer in dealerships if dealer.get("state") == state]
+
+            return JsonResponse({"status": 200, "dealers": dealerships})
+    except Exception as e:
+        return JsonResponse({"status": 500, "message": f"Error reading file: {e}"})
 
 
 # 🆔 View to return details for a specific dealer
 def get_dealer_details(request, dealer_id):
-    if dealer_id:
-        endpoint = f"/fetchDealer/{dealer_id}"
-        dealer = get_request(endpoint)
-        return JsonResponse({"status": 200, "dealer": dealer})
-    else:
-        return JsonResponse({"status": 400, "message": "Bad Request"})
+    endpoint = f"/fetchDealer/{dealer_id}"
+    dealer = get_request(endpoint)
+    return JsonResponse({"status": 200, "dealer": dealer})
 
 
 # 💬 View to return reviews with sentiment analysis
 def get_dealer_reviews(request, dealer_id):
-    if dealer_id:
-        endpoint = f"/fetchReviews/dealer/{dealer_id}"
-        reviews = get_request(endpoint)
-        for review_detail in reviews:
-            response = analyze_review_sentiments(review_detail['review'])
-            print(response)
-            review_detail['sentiment'] = response['sentiment']
-        return JsonResponse({"status": 200, "reviews": reviews})
-    else:
-        return JsonResponse({"status": 400, "message": "Bad Request"})
-    
+    import os
+
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # /server
+    file_path = os.path.join(base_dir, 'database', 'data', 'reviews.json')
+
+    try:
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+            all_reviews = data.get("reviews", [])
+
+            dealer_reviews = [review for review in all_reviews if review.get("dealership") == dealer_id]
+
+            # Analyze sentiments
+            for review_detail in dealer_reviews:
+                response = analyze_review_sentiments(review_detail['review'])
+                print(response)
+                review_detail['sentiment'] = response.get('sentiment', 'neutral')
+
+            return JsonResponse({"status": 200, "reviews": dealer_reviews})
+    except Exception as e:
+        return JsonResponse({"status": 500, "message": f"Error reading file: {e}"})
+
+
 # 📝 View to post a review
 @csrf_exempt
 def add_review(request):

@@ -1,7 +1,9 @@
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.shortcuts import redirect
+from django.contrib import messages
 import json
 
 @csrf_exempt
@@ -47,7 +49,10 @@ def login_view(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
-                return JsonResponse({'message': 'Login successful'})
+                return JsonResponse({
+                    'userName': username,
+                    'status': 'Authenticated'
+                })
             else:
                 return JsonResponse({'message': 'Invalid username or password'}, status=401)
         except Exception as e:

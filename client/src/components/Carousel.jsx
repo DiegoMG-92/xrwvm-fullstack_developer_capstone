@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const Carousel = () => {
   return (
@@ -14,9 +15,9 @@ const Carousel = () => {
                     <h1 className="display-3 text-white mb-4 pb-3 animated slideInDown">
                       Welcome to our Dealerships
                     </h1>
-                    <a href="#" className="btn btn-primary py-3 px-5 animated slideInDown">
+                    <Link to="/dealers" className="btn btn-primary py-3 px-5 animated slideInDown">
                       See Dealerships <i className="fa fa-arrow-right ms-3"></i>
-                    </a>
+                    </Link>
                   </div>
                   <div className="col-lg-5 d-none d-lg-flex animated zoomIn">
                     <img className="img-fluid" src="/img/carousel-1.png" alt="Car" />
