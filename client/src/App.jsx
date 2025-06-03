@@ -10,6 +10,7 @@ import Login from './pages/Login';
 import Register from './pages/Register';
 import Dealers from './pages/Dealers'; 
 import Reviews from './pages/Reviews';
+import AddReview from './pages/AddReview';
 
 function App() {
   // ✅ Initialize user from localStorage
@@ -47,6 +48,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         <Route path="/dealers" element={<Dealers user={user} />} />
         <Route path="/reviews/:dealerId" element={<Reviews user={user} />} />
+        <Route path="/add-review/:dealerId" element={<AddReview user={user} />} />
       </Routes>
 
       <Footer />

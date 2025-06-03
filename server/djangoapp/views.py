@@ -101,12 +101,45 @@ def get_dealer_reviews(request, dealer_id):
 # 📝 View to post a review
 @csrf_exempt
 def add_review(request):
-    if request.user.is_authenticated:
-        data = json.loads(request.body)
+    if request.method == "POST" and request.user.is_authenticated:
         try:
-            response = post_review(data)
-            return JsonResponse({"status": 200})
-        except:
-            return JsonResponse({"status": 401, "message": "Error in posting review"})
+            data = json.loads(request.body)
+
+            # Define the path to the JSON file
+            base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            file_path = os.path.join(base_dir, 'database', 'data', 'reviews.json')
+
+            # Read existing data
+            with open(file_path, 'r') as file:
+                reviews_data = json.load(file)
+
+            reviews = reviews_data.get("reviews", [])
+
+            # Generate a new unique review ID
+            new_id = max([r.get("id", 0) for r in reviews], default=0) + 1
+
+            # Add new review entry
+            new_review = {
+                "id": new_id,
+                "name": data.get("name"),
+                "dealership": data.get("dealership"),
+                "review": data.get("review"),
+                "purchase": data.get("purchase", False),
+                "purchase_date": data.get("purchase_date", ""),
+                "car_make": data.get("car_make", ""),
+                "car_model": data.get("car_model", ""),
+                "car_year": data.get("car_year", "")
+            }
+
+            reviews.append(new_review)
+
+            # Save updated data back to file
+            with open(file_path, 'w') as file:
+                json.dump({"reviews": reviews}, file, indent=2)
+
+            return JsonResponse({"status": 200, "message": "Review added successfully"})
+
+        except Exception as e:
+            return JsonResponse({"status": 500, "message": f"Error saving review: {e}"})
     else:
-        return JsonResponse({"status": 403, "message": "Unauthorized"})
+        return JsonResponse({"status": 403, "message": "Unauthorized or invalid method"})

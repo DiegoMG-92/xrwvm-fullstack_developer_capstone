@@ -6,8 +6,6 @@ from . import views
 app_name = 'djangoapp'
 
 urlpatterns = [
-
-    # 🔐 Login endpoint
     path('login', views.login_user, name='login'),
 
     # 🚗 Cars data
@@ -23,6 +21,6 @@ urlpatterns = [
     # 💬 Dealer reviews with sentiment
     path('reviews/dealer/<int:dealer_id>', views.get_dealer_reviews, name='dealer_reviews'),
 
-    # ➕ Add new review
-    path('add_review', views.add_review, name='add_review'),
+    # ✅ ➕ Add new review (fixed trailing slash)
+    path('add_review/', views.add_review, name='add_review'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -549,6 +549,28 @@
       "car_make": "Cadillac",
       "car_model": "DeVille",
       "car_year": 1995
+    },
+    {
+      "id": 51,
+      "name": "diego",
+      "dealership": 1,
+      "review": "This dealership was wo helpful, amazing and wonderful",
+      "purchase": true,
+      "purchase_date": "2025-01-08",
+      "car_make": "Mercedes",
+      "car_model": "Generic Model",
+      "car_year": 2020
+    },
+    {
+      "id": 52,
+      "name": "diego",
+      "dealership": 1,
+      "review": "This was a crappy service =(",
+      "purchase": true,
+      "purchase_date": "2025-01-08",
+      "car_make": "Kia",
+      "car_model": "Generic Model",
+      "car_year": 2024
     }
   ]
 }
