@@ -38,7 +38,7 @@ const Navbar = ({ user, setUser }) => {
             </>
           ) : (
             <>
-              <span className="nav-item nav-link">Hi, {user.username}</span>
+              <span className="nav-item nav-link">Hi, {user.first_name}</span>
               <button
                 onClick={handleLogout}
                 className="nav-item nav-link btn btn-link text-decoration-none"

@@ -21,9 +21,9 @@ const Login = ({ setUser }) => {
       const data = await response.json();
 
       if (response.ok && data.status === 'Authenticated') {
-        const userObj = { username: data.userName };
-        setUser(userObj); // ✅ set state
-        localStorage.setItem("user", JSON.stringify(userObj)); // ✅ persist
+        const userObj = { username: data.userName, first_name: data.first_name };
+        setUser(userObj);
+        localStorage.setItem("user", JSON.stringify(userObj));
         alert('Login successful');
         navigate('/');
       } else {

@@ -49,7 +49,7 @@ const AddReview = ({ user }) => {
       purchase: true,
       purchase_date: purchaseDate,
       car_make: carMake,
-      car_model: "Generic Model",  // Placeholder
+      car_model: "Generic Model",
       car_year: parseInt(carYear),
     };
 
@@ -80,6 +80,18 @@ const AddReview = ({ user }) => {
   return (
     <>
       <PageHeader title="Write a Review" />
+
+      <div className="container mt-4 text-center">
+        {dealer && (
+          <>
+            <h1 className="mb-3">{dealer.full_name || "Car Dealership"}</h1>
+            <p className="fw-bold">
+              {dealer.city}, {dealer.address}, Zip - {dealer.zip}, {dealer.state}
+            </p>
+          </>
+        )}
+      </div>
+
       <div className="container-fluid bg-secondary booking my-5 wow fadeInUp" data-wow-delay="0.1s">
         <div className="container">
           <div className="row justify-content-center">

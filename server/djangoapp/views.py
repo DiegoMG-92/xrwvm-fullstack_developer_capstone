@@ -66,9 +66,20 @@ def get_dealerships(request, state="All"):
 
 # 🆔 View to return details for a specific dealer
 def get_dealer_details(request, dealer_id):
-    endpoint = f"/fetchDealer/{dealer_id}"
-    dealer = get_request(endpoint)
-    return JsonResponse({"status": 200, "dealer": dealer})
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # points to /server
+    file_path = os.path.join(base_dir, 'database', 'data', 'dealerships.json')
+
+    try:
+        with open(file_path, 'r') as f:
+            data = json.load(f)
+            dealerships = data.get("dealerships", [])
+
+            # Find dealer by id
+            dealer = next((d for d in dealerships if d.get("id") == int(dealer_id)), {})
+
+            return JsonResponse({"status": 200, "dealer": dealer})
+    except Exception as e:
+        return JsonResponse({"status": 500, "message": f"Error fetching dealer: {e}"})
 
 
 # 💬 View to return reviews with sentiment analysis

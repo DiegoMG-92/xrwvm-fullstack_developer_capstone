@@ -571,6 +571,28 @@
       "car_make": "Kia",
       "car_model": "Generic Model",
       "car_year": 2024
+    },
+    {
+      "id": 53,
+      "name": "diego",
+      "dealership": 1,
+      "review": "The service was so not good, I'm sad",
+      "purchase": true,
+      "purchase_date": "2025-08-09",
+      "car_make": "Audi",
+      "car_model": "Generic Model",
+      "car_year": 2021
+    },
+    {
+      "id": 54,
+      "name": "user1",
+      "dealership": 2,
+      "review": "Awesome service! ",
+      "purchase": true,
+      "purchase_date": "2025-02-10",
+      "car_make": "NISSAN",
+      "car_model": "Generic Model",
+      "car_year": 2015
     }
   ]
 }

@@ -51,6 +51,7 @@ def login_view(request):
                 login(request, user)
                 return JsonResponse({
                     'userName': username,
+                    'first_name': user.first_name,
                     'status': 'Authenticated'
                 })
             else:
