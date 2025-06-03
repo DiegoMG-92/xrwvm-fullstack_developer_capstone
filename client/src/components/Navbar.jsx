@@ -1,26 +1,23 @@
-import React, { useContext } from 'react';
-import { Link } from 'react-router-dom';
-import { UserContext } from '../contexts/UserContext';
-import { useNavigate } from 'react-router-dom';
+import React from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
-const Navbar = () => {
-  const { user, setUser } = useContext(UserContext);
+const Navbar = ({ user, setUser }) => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
     localStorage.removeItem('user'); // Clear persisted login
-    setUser(null);                   // Clear context state
+    setUser(null);                   // Clear app state
     alert('Session Terminated');
     navigate('/');
   };
 
   return (
     <nav className="navbar navbar-expand-lg bg-white navbar-light shadow">
-      <a href="/" className="navbar-brand d-flex align-items-center px-4 px-lg-5">
+      <Link to="/" className="navbar-brand d-flex align-items-center px-4 px-lg-5">
         <h2 className="m-0 text-primary">
           <i className="fa fa-car me-3"></i>Equinox Automotive
         </h2>
-      </a>
+      </Link>
       <button
         type="button"
         className="navbar-toggler me-4"
@@ -41,13 +38,13 @@ const Navbar = () => {
             </>
           ) : (
             <>
+              <span className="nav-item nav-link">Hi, {user.username}</span>
               <button
                 onClick={handleLogout}
                 className="nav-item nav-link btn btn-link text-decoration-none"
               >
                 Logout
               </button>
-              <span className="nav-item nav-link">{user.username}</span>
             </>
           )}
         </div>

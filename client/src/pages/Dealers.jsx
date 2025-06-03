@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import { Link } from "react-router-dom";
 
-const Dealers = ({ user }) => {
+const Dealers = () => {
   const [dealers, setDealers] = useState([]);
   const [stateFilter, setStateFilter] = useState("");
   const [loading, setLoading] = useState(true);

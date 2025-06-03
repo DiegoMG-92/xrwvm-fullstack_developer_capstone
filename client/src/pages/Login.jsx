@@ -1,10 +1,8 @@
-import React, { useState, useContext } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserContext } from '../contexts/UserContext';
 import PageHeader from '../components/PageHeader';
 
-const Login = () => {
-  const { setUser } = useContext(UserContext);
+const Login = ({ setUser }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
@@ -23,9 +21,11 @@ const Login = () => {
       const data = await response.json();
 
       if (response.ok && data.status === 'Authenticated') {
-        setUser({ username: data.userName });
-        alert('Login successful'); // ✅ Show alert
-        navigate('/');             // ✅ Redirect to homepage
+        const userObj = { username: data.userName };
+        setUser(userObj); // ✅ set state
+        localStorage.setItem("user", JSON.stringify(userObj)); // ✅ persist
+        alert('Login successful');
+        navigate('/');
       } else {
         setMessage(data.message || 'Login failed');
       }
@@ -53,6 +53,7 @@ const Login = () => {
                         style={{ height: '55px' }}
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
+                        required
                       />
                     </div>
                     <div className="col-12">
@@ -63,6 +64,7 @@ const Login = () => {
                         style={{ height: '55px' }}
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                       />
                     </div>
                     <div className="col-12">

@@ -73,27 +73,29 @@ def get_dealer_details(request, dealer_id):
 
 # 💬 View to return reviews with sentiment analysis
 def get_dealer_reviews(request, dealer_id):
-    import os
-
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  # /server
-    file_path = os.path.join(base_dir, 'database', 'data', 'reviews.json')
-
     try:
+        dealer_id = int(dealer_id)
+
+        # Load reviews from local file
+        base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        file_path = os.path.join(base_dir, 'database', 'data', 'reviews.json')
+
         with open(file_path, 'r') as f:
             data = json.load(f)
             all_reviews = data.get("reviews", [])
 
-            dealer_reviews = [review for review in all_reviews if review.get("dealership") == dealer_id]
+        # Filter only the reviews for this dealership
+        dealer_reviews = [r for r in all_reviews if int(r.get("dealership", -1)) == dealer_id]
 
-            # Analyze sentiments
-            for review_detail in dealer_reviews:
-                response = analyze_review_sentiments(review_detail['review'])
-                print(response)
-                review_detail['sentiment'] = response.get('sentiment', 'neutral')
+        # Analyze sentiment
+        for review in dealer_reviews:
+            sentiment = analyze_review_sentiments(review.get("review", ""))
+            review["sentiment"] = sentiment.get("sentiment", "neutral")
 
-            return JsonResponse({"status": 200, "reviews": dealer_reviews})
+        return JsonResponse({"status": 200, "reviews": dealer_reviews})
+
     except Exception as e:
-        return JsonResponse({"status": 500, "message": f"Error reading file: {e}"})
+        return JsonResponse({"status": 500, "message": f"Error fetching reviews: {e}"})
 
 
 # 📝 View to post a review

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
@@ -8,14 +8,28 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import Dealers from './pages/Dealers'; // ✅ Make sure this path is correct
+import Dealers from './pages/Dealers'; 
+import Reviews from './pages/Reviews';
 
 function App() {
-  const [user, setUser] = useState(null); // ✅ Declare user state
+  // ✅ Initialize user from localStorage
+  const [user, setUser] = useState(() => {
+    const storedUser = localStorage.getItem("user");
+    return storedUser ? JSON.parse(storedUser) : null;
+  });
+
+  // ✅ Keep localStorage in sync when user logs in
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("user", JSON.stringify(user));
+    } else {
+      localStorage.removeItem("user");
+    }
+  }, [user]);
 
   return (
     <>
-      <Navbar user={user} setUser={setUser} /> {/* Optional: if navbar depends on user */}
+      <Navbar user={user} setUser={setUser} />
 
       <Routes>
         <Route
@@ -29,9 +43,10 @@ function App() {
         />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/login" element={<Login setUser={setUser} />} /> {/* Let login update user */}
+        <Route path="/login" element={<Login setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/dealers" element={<Dealers user={user} />} /> {/* Fixed */}
+        <Route path="/dealers" element={<Dealers user={user} />} />
+        <Route path="/reviews/:dealerId" element={<Reviews user={user} />} />
       </Routes>
 
       <Footer />
