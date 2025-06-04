@@ -593,6 +593,17 @@
       "car_make": "NISSAN",
       "car_model": "Generic Model",
       "car_year": 2015
+    },
+    {
+      "id": 55,
+      "name": "diego",
+      "dealership": 35,
+      "review": "This one was reaaaaally bad .....",
+      "purchase": true,
+      "purchase_date": "2025-05-06",
+      "car_make": "Toyota",
+      "car_model": "Generic Model",
+      "car_year": 2019
     }
   ]
 }

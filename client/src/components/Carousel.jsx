@@ -1,5 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import bg1 from '../assets/img/carousel-bg-1.jpg';
+import car1 from '../assets/img/carousel-1.png';
+import bg2 from '../assets/img/carousel-bg-2.jpg';
+import car2 from '../assets/img/carousel-2.png';
 
 const Carousel = () => {
   return (
@@ -7,7 +11,7 @@ const Carousel = () => {
       <div id="header-carousel" className="carousel slide" data-bs-ride="carousel">
         <div className="carousel-inner">
           <div className="carousel-item active">
-            <img className="w-100" src="/img/carousel-bg-1.jpg" alt="Service Background" />
+            <img className="w-100" src={bg1} alt="Service Background" />
             <div className="carousel-caption d-flex align-items-center">
               <div className="container">
                 <div className="row align-items-center justify-content-center justify-content-lg-start">
@@ -20,7 +24,7 @@ const Carousel = () => {
                     </Link>
                   </div>
                   <div className="col-lg-5 d-none d-lg-flex animated zoomIn">
-                    <img className="img-fluid" src="/img/carousel-1.png" alt="Car" />
+                    <img className="img-fluid" src={car1} alt="Car" />
                   </div>
                 </div>
               </div>
@@ -28,7 +32,7 @@ const Carousel = () => {
           </div>
 
           <div className="carousel-item">
-            <img className="w-100" src="/img/carousel-bg-2.jpg" alt="Service Background 2" />
+            <img className="w-100" src={bg2} alt="Service Background 2" />
             <div className="carousel-caption d-flex align-items-center">
               <div className="container">
                 <div className="row align-items-center justify-content-center justify-content-lg-start">
@@ -42,7 +46,7 @@ const Carousel = () => {
                     </a>
                   </div>
                   <div className="col-lg-5 d-none d-lg-flex animated zoomIn">
-                    <img className="img-fluid" src="/img/carousel-2.png" alt="Car Wash" />
+                    <img className="img-fluid" src={car2} alt="Car Wash" />
                   </div>
                 </div>
               </div>

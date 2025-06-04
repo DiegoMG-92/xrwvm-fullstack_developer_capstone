@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import PageHeader from '../components/PageHeader';
+import { API_BASE_URL } from '../utils/api';
 
 const Login = ({ setUser }) => {
   const [username, setUsername] = useState('');
@@ -8,10 +9,11 @@ const Login = ({ setUser }) => {
   const [message, setMessage] = useState('');
   const navigate = useNavigate();
 
+ 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:8000/users/login/', {
+      const response = await fetch(`${API_BASE_URL}/users/login/`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
+import { API_BASE_URL } from '../utils/api';
 
 const AddReview = ({ user }) => {
   const { dealerId } = useParams();
@@ -20,7 +21,7 @@ const AddReview = ({ user }) => {
 
   const fetchDealer = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/dealer/${dealerId}`);
+      const response = await fetch(`${API_BASE_URL}/dealer/${dealerId}`);
       const data = await response.json();
       setDealer(data.dealer);
     } catch (error) {
@@ -30,7 +31,7 @@ const AddReview = ({ user }) => {
 
   const fetchCars = async () => {
     try {
-      const response = await fetch("http://localhost:8000/get_cars");
+      const response = await fetch(`${API_BASE_URL}/get_cars`);
       const data = await response.json();
       const uniqueMakes = [...new Set(data.CarModels.map((c) => c.CarMake))];
       setCars(uniqueMakes);
@@ -54,7 +55,7 @@ const AddReview = ({ user }) => {
     };
 
     try {
-      const response = await fetch("http://localhost:8000/add_review/", {
+      const response = await fetch(`${API_BASE_URL}/add_review/`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

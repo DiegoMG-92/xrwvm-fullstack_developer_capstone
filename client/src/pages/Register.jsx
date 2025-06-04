@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import PageHeader from '../components/PageHeader';
+import { API_BASE_URL } from '../utils/api';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -13,7 +14,7 @@ const Register = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:8000/users/register/', {
+      const response = await fetch(`${API_BASE_URL}/users/register/`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

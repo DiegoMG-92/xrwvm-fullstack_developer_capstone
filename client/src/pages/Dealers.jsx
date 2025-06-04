@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PageHeader from "../components/PageHeader";
 import { Link } from "react-router-dom";
+import { API_BASE_URL } from '../utils/api';
 
 const Dealers = () => {
   const [dealers, setDealers] = useState([]);
@@ -65,8 +66,8 @@ const Dealers = () => {
     setLoading(true);
     try {
       const endpoint = state
-        ? `http://localhost:8000/get_dealers/${state}`
-        : "http://localhost:8000/get_dealers";
+        ? `${API_BASE_URL}/get_dealers/${state}`
+        : `${API_BASE_URL}/get_dealers`;
       const response = await fetch(endpoint);
       const data = await response.json();
       setDealers(data.dealers || []);

@@ -1,10 +1,14 @@
 import React from 'react';
+import team1 from '../assets/img/team-1.jpg';
+import team2 from '../assets/img/team-2.jpg';
+import team3 from '../assets/img/team-3.jpg';
+import team4 from '../assets/img/team-4.jpg';
 
 const technicians = [
-  { id: 1, name: 'Jordan Hayes', role: 'Chief Operations Officer', img: '/img/team-1.jpg', delay: '0.1s' },
-  { id: 2, name: 'Marcus Bennett', role: 'Head of Customer Experience', img: '/img/team-2.jpg', delay: '0.3s' },
-  { id: 3, name: 'Alfonso Martinez', role: 'Lead Automotive Engineer', img: '/img/team-3.jpg', delay: '0.5s' },
-  { id: 4, name: 'Travis Anderson', role: 'Technical Services Coordinator', img: '/img/team-4.jpg', delay: '0.7s' },
+  { id: 1, name: 'Jordan Hayes', role: 'Chief Operations Officer', img: team1, delay: '0.1s' },
+  { id: 2, name: 'Marcus Bennett', role: 'Head of Customer Experience', img: team2, delay: '0.3s' },
+  { id: 3, name: 'Alfonso Martinez', role: 'Lead Automotive Engineer', img: team3, delay: '0.5s' },
+  { id: 4, name: 'Travis Anderson', role: 'Technical Services Coordinator', img: team4, delay: '0.7s' },
 ];
 
 const TeamSection = () => {

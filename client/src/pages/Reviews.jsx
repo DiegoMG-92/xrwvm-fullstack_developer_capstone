@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import PageHeader from "../components/PageHeader";
+import { API_BASE_URL } from '../utils/api';
 
 const Reviews = ({ user }) => {
   const { dealerId } = useParams();
@@ -10,7 +11,7 @@ const Reviews = ({ user }) => {
 
   const fetchDealer = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/dealer/${dealerId}`);
+      const response = await fetch(`${API_BASE_URL}/dealer/${dealerId}`);
       const data = await response.json();
       setDealer(data.dealer);
     } catch (error) {
@@ -20,7 +21,7 @@ const Reviews = ({ user }) => {
 
   const fetchReviews = async () => {
     try {
-      const response = await fetch(`http://localhost:8000/reviews/dealer/${dealerId}`);
+      const response = await fetch(`${API_BASE_URL}/reviews/dealer/${dealerId}`);
       const data = await response.json();
       setReviews(data.reviews || []);
     } catch (error) {

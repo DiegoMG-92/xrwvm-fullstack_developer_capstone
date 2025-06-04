@@ -1,0 +1,8 @@
+Django>=5.2
+djangorestframework
+django-cors-headers
+gunicorn
+nltk
+flask
+requests
+python-dotenv
